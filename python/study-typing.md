@@ -2,9 +2,11 @@ typing官方文档：https://docs.python.org/zh-cn/3.12/library/typing.html
 
 mypy官方文档：https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html
 
+**大佬文档**：https://zhuanlan.zhihu.com/p/464979921
+
 这里仅对typing的基本使用做简单描述，更加详细的内容可以查看官方文档、源码或者大佬写的文档。
 
-**大佬文档**：https://zhuanlan.zhihu.com/p/464979921
+如果你的python版本某个类型标注方式可以安装 [typing_extensions](https://pypi.org/project/typing_extensions/)包。[typing_extensions](https://pypi.org/project/typing_extensions/) 包提供了这些新特性针对较旧版本 Python 的向下移植。
 
 ## 常用类型
 
@@ -13,20 +15,20 @@ mypy官方文档：https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html
 | 类型名                                                       | 作用                                                         | 使用方式                                                     | 支持的python版本                                             | 建议                                                         |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | int, str, bool, bytes, float, setint, str, bool, bytes, float, set | 表明参数为基本数据类型                                       | def test(x: int) -> int:    pass                             | 3.6+                                                         |                                                              |
-| Type Alias(类型别名)                                         | 将类型赋值为指定的别名，可互换的同义词                       | second = floatsecond: TypeAlias = floattype second = float   | second = float(3.6+)second: TypeAlias = float(3.10-3.11)type second = float(3.12+) |                                                              |
-| List/list                                                    | 列表                                                         | typing.List[int]list[int]                                    | list (python 3.9+)typing.List (python3.6 +)                  |                                                              |
-| Dict/dict                                                    | 字典                                                         | typing.Dict[Ktype, Vtype]dict[Ktype, Vtype]                  | dict (3.9+)typing.Dict(3.6+)                                 |                                                              |
+| Type Alias(类型别名)                                         | 将类型赋值为指定的别名，可互换的同义词                       | second = float<br />second: TypeAlias = float<br />type second = float | second = float(3.6+)<br />second: TypeAlias = float(3.10-3.11)<br />type second = float(3.12+) |                                                              |
+| List/list                                                    | 列表                                                         | typing.List[int]list[int]                                    | list (python 3.9+)<br />typing.List (python3.6 +)            |                                                              |
+| Dict/dict                                                    | 字典                                                         | typing.Dict[Ktype, Vtype]<br />dict[Ktype, Vtype]            | dict (3.9+)<br />typing.Dict(3.6+)                           |                                                              |
 | Type Casting(强制类型转换)                                   | 检测器无法正确推断类型，代码正确，强制转换值的类型（并非在运行时强制转换值的类型，而是给检测器一个提示） | return typing.cast(x)                                        | Python 3.6+                                                  |                                                              |
-| NewType                                                      | 创建名义上的新类型                                           | UserId = NewType("UserId", int)#正确get_user(UserId(1))#错误，int类型而不是UserIdget_user(1) | Python 3.6+                                                  |                                                              |
+| NewType                                                      | 创建名义上的新类型                                           | UserId = NewType("UserId", int)<br />#正确<br />get_user(UserId(1))<br />#错误，int类型而不是UserId<br />get_user(1) | Python 3.6+                                                  |                                                              |
 | Any                                                          | 参数类型可以为任意                                           | typing.Any                                                   | Python 3.6+                                                  | 一般不建议使用，作用不大。如果必须使用也可用object替代。     |
 | Union（联合类型）                                            | 方法的参数或返回值可能是不同的类型                           | typing.Union[A, B, C, D, E]                                  | Python 3.10 -                                                | Python 3.10+可使用：int \| str                               |
 | Optional                                                     | 参数类型可以为None或指定类型                                 | typing.Optional[A]                                           | Python 3.10 -                                                | Python 3.10+可使用：None \| str                              |
-| Tuple/tuple                                                  | 元组。不可变的元组，固定长度                                 | Tuple[int] #元组仅一个元素Tuple[int, ...] # 可变元素         | typing.Tuple (3.6+)tuple(3.9+)                               | 可使用NamedTuple，使代码更加清晰。                           |
-| Never/NoReturn(底类型)                                       | 表示该函数永远不会有返回值。如sys.exit()                     | typing.NoRetruntyping.Never                                  | Never(3.12 +)NoRetrun(3.11 -)                                |                                                              |
+| Tuple/tuple                                                  | 元组。不可变的元组，固定长度                                 | Tuple[int] #元组仅一个元素<br />Tuple[int, ...] # 可变元素   | typing.Tuple (3.6+)tuple(3.9+)                               | 可使用NamedTuple，使代码更加清晰。                           |
+| Never/NoReturn(底类型)                                       | 表示该函数永远不会有返回值。如sys.exit()                     | typing.NoRetrun<br />typing.Never                            | Never(3.12 +)<br />NoRetrun(3.11 -)                          |                                                              |
 | Literal(字面量类型）                                         | Literal 支持整数字面量、byte、Unicode 字符串、布尔值、枚举 (Enum) 以及 None. | typing.Literal["apple", "banana"]                            | python 3.8+                                                  | 一定程度上Literal可以替代Enum, 但Literal并不提供运行时约束   |
 | LiteralString（字符串字面量类型）                            | 表示输入的参数不允许进行动态构建。如：f"test, {sqli}"        | typing.LiteralString                                         | python 3.11 +                                                | 低于python 3.11版本的python可用from typing_extensions import LiteralString |
 | Generic(泛型)                                                | 泛型。下面详细介绍                                           |                                                              |                                                              |                                                              |
-| 类对象类型(type/Type)                                        | 类对象类型                                                   | type[User]typing.Type[User]                                  | type[User] 3.9+typing.Type 3.6+                              | type[User]与直接使用User的区别是User是指类的实例。如：User('li')。type[User]指类。 |
+| 类对象类型(type/Type)                                        | 类对象类型                                                   | type[User]<br />typing.Type[User]                            | type[User] 3.9+<br />typing.Type 3.6+                        | type[User]与直接使用User的区别是User是指类的实例。如：User('li')。type[User]指类。 |
 
 ## 抽象基类
 
@@ -40,6 +42,42 @@ mypy官方文档：https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html
 | **`Iterator`** | 表示迭代器（需实现 `__iter__` 和 `__next__` 方法）。         |                                                      |                  | 适用于所有迭代器，比如 `map()`、`filter()`、`zip()`、手写的 `Iterator` 类 |
 | **`Mapping`**  | 字典类结构的接口（需实现 `__getitem__`, `__iter__`, `__len__` 等）。 |                                                      |                  |                                                              |
 | Callable       | 表示可调用对象（如函数或实现了 `__call__` 的类）。           | typing.Callable[[argtype, argtype, ...], returntype] | Python 3.6+      |                                                              |
+
+## TypedDict(类型字典)
+
+声明方式类似于NamedTuple，dataclass的声明方式，但不同的是TypedDict不会真正的创建一个类。其是Type hints的一部分，用来表明一个字典类型。
+
+可以通过NotRequired（3.11+）与ReadOnly（3.13+）来指定字段为不必要和不可修改的。
+
+```
+from typing import TypedDict, NotRequired
+
+class BookDict(TypedDict):
+    isbn: str
+    title: str
+    authors: list[str]
+    pagecount: NotRequired[int]
+    members: ReadOnly[list[str]]
+```
+
+## Unpack(已解包的类型运算符)
+
+一般对**kwargs进行类型标注。
+
+python3.11+ 使用方式：
+
+```
+from typing import TypedDict, Unpack
+
+class Movie(TypedDict):
+    name: str
+    year: int
+
+# 此函数需要两个关键字参数 -
+# 类型为 `str` 的 `name` 和类型为 `int` 的 `year`。
+def foo(**kwargs: Unpack[Movie]): ...
+```
+
 
 ## 泛型﻿
 
