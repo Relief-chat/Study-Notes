@@ -1,3 +1,4 @@
+# Python typing 类型提示
 typing官方文档：https://docs.python.org/zh-cn/3.12/library/typing.html
 
 mypy官方文档：https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html
